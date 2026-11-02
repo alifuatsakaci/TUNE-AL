@@ -60,8 +60,7 @@ public:
     public:
         MainWindow (juce::String name)
             : DocumentWindow (name,
-                              juce::Desktop::getInstance().getDefaultLookAndFeel()
-                                                          .findColour (juce::ResizableWindow::backgroundColourId),
+                              juce::Colours::black,      // the intro starts on black, so the window does too
                               DocumentWindow::allButtons)
         {
             setUsingNativeTitleBar (true);

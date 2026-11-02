@@ -40,6 +40,12 @@ MainComponent::MainComponent()
     guide.playPair = [this] (float a, float b) { synth.pluck (a); synth2.pluck (b); };
     guide.getReference = [this] { return referencePitch.load(); };
 
+    // the launch intro and, on the very first launch, the welcome card with the tour offer
+    addChildComponent (intro);
+    intro.onTour       = [this] { guide.open(); };
+    intro.onFinished   = [this] { startListening(); };
+    intro.onForkTapped = [this] { playNote (referencePitch.load()); };   // the fork plays A4
+
     // manual mode: three ways to choose the note, and the Play button
     ring.onNoteClicked = [this] (int note) { selectTarget (note, defaultOctaveFor (note), true); };
     octavePicker.onOctaveChanged = [this] (int octave) { selectTarget (targetNote, octave, true); };
@@ -71,12 +77,21 @@ MainComponent::MainComponent()
     setSize (1100, 780);
     startTimerHz (60);   // call timerCallback() 60 times per second
 
+    // Sound only for now: the microphone is opened when the intro is over (startListening), so the
+    // "allow microphone?" question doesn't pop up over the welcome card
+    setAudioChannels (0, 2);
+    intro.start (! Theme::settings().getBoolValue ("welcomeSeen", false));
+    resized();
+}
+
+void MainComponent::startListening()
+{
     // Some platforms require permissions to open input channels so request that here
     if (juce::RuntimePermissions::isRequired (juce::RuntimePermissions::recordAudio)
         && ! juce::RuntimePermissions::isGranted (juce::RuntimePermissions::recordAudio))
     {
         juce::RuntimePermissions::request (juce::RuntimePermissions::recordAudio,
-                                           [&] (bool granted) { setAudioChannels (granted ? 2 : 0, 2); });
+                                           [this] (bool granted) { setAudioChannels (granted ? 2 : 0, 2); });
     }
     else
     {
@@ -302,7 +317,7 @@ float MainComponent::drawerTravel() const
 void MainComponent::drawerMouseDown (const juce::MouseEvent& e)
 {
     drag = {};
-    if (wideLayout || guide.isVisible())
+    if (wideLayout || guide.isVisible() || intro.isVisible())
         return;
 
     // the search box keeps its own drags (they select text)
@@ -595,6 +610,8 @@ void MainComponent::resized()
 
     guide.setBounds (getLocalBounds());       // the slideshow covers everything...
     guide.setInsets (insets);                 // ...but keeps its sheet inside the safe area
+    intro.setBounds (getLocalBounds());
+    intro.setInsets (insets);
 
     lastInsets = insets;
 
@@ -656,6 +673,8 @@ void MainComponent::resized()
     sidebarToggle.toFront (false);
     if (guide.isVisible())
         guide.toFront (false);
+    if (intro.isVisible())
+        intro.toFront (false);
 
     // the sidebar button: inside the sidebar's top-right corner when open, at the top left when closed,
     // and in between while the sidebar slides (a "lerp": linear interpolation by the animation amount)

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- The screen iOS shows the moment the app is tapped, before any of our code runs.
+     It shows the logo exactly where the intro (IntroComponent) starts, so the two join without a jump:
+     centred in the safe area, 62% of its width, at most 300 points wide. -->
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <scenes>
+        <scene sceneID="EHf-IW-A2E">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="" sceneMemberID="firstResponder"/>
+                <viewController id="01J-lp-oVM" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="LaunchLogo.png" translatesAutoresizingMaskIntoConstraints="NO" id="Lgo-Im-001"/>
+                        </subviews>
+                        <color key="backgroundColor" red="0" green="0" blue="0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <viewLayoutGuide key="safeArea" id="Saf-Ar-001"/>
+                        <constraints>
+                            <constraint firstItem="Lgo-Im-001" firstAttribute="centerX" secondItem="Saf-Ar-001" secondAttribute="centerX" id="Lgo-Cx-001"/>
+                            <constraint firstItem="Lgo-Im-001" firstAttribute="centerY" secondItem="Saf-Ar-001" secondAttribute="centerY" id="Lgo-Cy-001"/>
+                            <constraint firstItem="Lgo-Im-001" firstAttribute="width" secondItem="Saf-Ar-001" secondAttribute="width" multiplier="0.62" priority="750" id="Lgo-W1-001"/>
+                            <constraint firstItem="Lgo-Im-001" firstAttribute="width" relation="lessThanOrEqual" constant="300" id="Lgo-W2-001"/>
+                            <constraint firstItem="Lgo-Im-001" firstAttribute="width" secondItem="Lgo-Im-001" secondAttribute="height" multiplier="857:799" id="Lgo-As-001"/>
+                        </constraints>
+                    </view>
+                </viewController>
+            </objects>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="LaunchLogo.png" width="857" height="799"/>
+    </resources>
+</document>

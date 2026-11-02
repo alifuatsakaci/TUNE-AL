@@ -11,6 +11,7 @@
 #include "GuideComponent.h"
 #include "SidebarComponent.h"
 #include "Spring.h"
+#include "IntroComponent.h"
 
 //==============================================================================
 /*
@@ -55,6 +56,8 @@ public:
     bool keyPressed (const juce::KeyPress& key) override;     // Ctrl+Cmd+S toggles the sidebar
 
     // dragging the drawer with a finger (or the mouse in a narrow window)
+    void startListening();                                    // open the microphone (asks for permission the first time)
+
     void drawerMouseDown (const juce::MouseEvent& e);
     void drawerMouseDrag (const juce::MouseEvent& e);
     void drawerMouseUp   (const juce::MouseEvent& e);
@@ -95,6 +98,7 @@ private:
     OctavePicker octavePicker;
     PlayBar playBar;
     GuideComponent guide;       // the music basics slideshow, drawn on top of everything
+    IntroComponent intro;       // the launch animation and the first-launch welcome, on top of that
     bool manualMode = false;
     bool wideLayout = false;                                       // true: sidebar layout (wide window)
 

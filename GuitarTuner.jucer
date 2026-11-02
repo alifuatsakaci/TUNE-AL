@@ -7,6 +7,7 @@
     <GROUP id="{EEC92985-6F27-D346-0802-DE6E12C5E96E}" name="Source">
       <FILE id="Thm7Lt" name="Theme.h" compile="0" resource="0" file="Source/Theme.h"/>
       <FILE id="Spr9Kq" name="Spring.h" compile="0" resource="0" file="Source/Spring.h"/>
+      <FILE id="Int2Lg" name="IntroComponent.h" compile="0" resource="0" file="Source/IntroComponent.h"/>
       <FILE id="Sdb7Fm" name="SidebarComponent.h" compile="0" resource="0" file="Source/SidebarComponent.h"/>
       <FILE id="Gde7Sl" name="GuideComponent.h" compile="0" resource="0" file="Source/GuideComponent.h"/>
       <FILE id="Mnl7Ct" name="ManualControls.h" compile="0" resource="0" file="Source/ManualControls.h"/>
@@ -23,6 +24,17 @@
       <FILE id="YQHj4P" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
       <FILE id="qSNACJ" name="MainComponent.cpp" compile="1" resource="0"
             file="Source/MainComponent.cpp"/>
+    </GROUP>
+    <GROUP id="{7A1C2E44-9B3D-4F21-8C55-1D2E3F4A5B6C}" name="Resources">
+      <FILE id="Hnd2Im" name="hand.png" compile="0" resource="1" file="Resources/hand.png"/>
+      <FILE id="Frk2Im" name="fork.png" compile="0" resource="1" file="Resources/fork.png"/>
+      <FILE id="Fsh2Im" name="fork_shadow.png" compile="0" resource="1" file="Resources/fork_shadow.png"/>
+      <FILE id="LnL2Im" name="LaunchLogo.png" compile="0" resource="0" xcodeResource="1"
+            file="Resources/LaunchLogo.png"/>
+      <FILE id="LnS2Sb" name="LaunchScreen.storyboard" compile="0" resource="0"
+            file="Resources/LaunchScreen.storyboard"/>
+      <FILE id="IcM2Ap" name="AppIcon_mac.png" compile="0" resource="0" file="Resources/AppIcon_mac.png"/>
+      <FILE id="IcI2Ap" name="AppIcon_ios.png" compile="0" resource="0" file="Resources/AppIcon_ios.png"/>
     </GROUP>
   </MAINGROUP>
   <MODULES>
@@ -42,7 +54,7 @@
   </MODULES>
   <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1"/>
   <EXPORTFORMATS>
-    <XCODE_MAC targetFolder="Builds/MacOSX" iosDevelopmentTeamID="ZWK5C5U7QD" microphonePermissionNeeded="1">
+    <XCODE_MAC targetFolder="Builds/MacOSX" bigIcon="IcM2Ap" iosDevelopmentTeamID="ZWK5C5U7QD" microphonePermissionNeeded="1">
       <CONFIGURATIONS>
         <CONFIGURATION isDebug="1" name="Debug" targetName="GuitarTuner" macOSDeploymentTarget="12.0"
                        osxCompatibility="12.0 SDK"/>
@@ -64,7 +76,7 @@
         <MODULEPATH id="juce_audio_processors_headless" path="../modules"/>
       </MODULEPATHS>
     </XCODE_MAC>
-    <XCODE_IPHONE targetFolder="Builds/iOS" iosDevelopmentTeamID="ZWK5C5U7QD" iosDeviceFamily="1,2" iosScreenOrientation="UIInterfaceOrientationPortrait"
+    <XCODE_IPHONE targetFolder="Builds/iOS" bigIcon="IcI2Ap" customLaunchStoryboard="Resources/LaunchScreen.storyboard" iosDevelopmentTeamID="ZWK5C5U7QD" iosDeviceFamily="1,2" iosScreenOrientation="UIInterfaceOrientationPortrait"
                   microphonePermissionNeeded="1"
                   microphonePermissionsText="GuitarTuner listens to your guitar through the microphone to measure its pitch.">
       <CONFIGURATIONS>
