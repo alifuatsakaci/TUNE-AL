@@ -1,0 +1,13 @@
+# Xcode build output (Xcode recreates it)
+Builds/*/build/
+DerivedData/
+
+# personal Xcode state (window layout, breakpoints)
+xcuserdata/
+*.xcuserstate
+
+# Python virtual environment (recreate with: python3 -m venv .venv && .venv/bin/pip install -r prototype/requirements.txt)
+.venv/
+
+# macOS
+.DS_Store

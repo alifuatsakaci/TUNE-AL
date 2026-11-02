@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<JUCERPROJECT id="Ltxzim" name="GuitarTuner" projectType="guiapp" useAppConfig="0"
+              bundleIdentifier="com.alifuatsakaci.guitartuner" companyName="Ali Fuat Sakaci"
+              addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1">
+  <MAINGROUP id="UY2xWG" name="GuitarTuner">
+    <GROUP id="{EEC92985-6F27-D346-0802-DE6E12C5E96E}" name="Source">
+      <FILE id="Thm7Lt" name="Theme.h" compile="0" resource="0" file="Source/Theme.h"/>
+      <FILE id="Spr9Kq" name="Spring.h" compile="0" resource="0" file="Source/Spring.h"/>
+      <FILE id="Sdb7Fm" name="SidebarComponent.h" compile="0" resource="0" file="Source/SidebarComponent.h"/>
+      <FILE id="Gde7Sl" name="GuideComponent.h" compile="0" resource="0" file="Source/GuideComponent.h"/>
+      <FILE id="Mnl7Ct" name="ManualControls.h" compile="0" resource="0" file="Source/ManualControls.h"/>
+      <FILE id="Plk7Sy" name="PluckSynth.h" compile="0" resource="0" file="Source/PluckSynth.h"/>
+      <FILE id="Sc7Chp" name="StringChipsComponent.h" compile="0" resource="0"
+            file="Source/StringChipsComponent.h"/>
+      <FILE id="TD6anT" name="HeaderComponent.h" compile="0" resource="0"
+            file="Source/HeaderComponent.h"/>
+      <FILE id="DOlsOd" name="RingComponent.h" compile="0" resource="0" file="Source/RingComponent.h"/>
+      <FILE id="t9Zmfj" name="PitchStabiliser.h" compile="0" resource="0"
+            file="Source/PitchStabiliser.h"/>
+      <FILE id="WYD4XE" name="PitchDetector.h" compile="0" resource="0" file="Source/PitchDetector.h"/>
+      <FILE id="C4hpoI" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
+      <FILE id="YQHj4P" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
+      <FILE id="qSNACJ" name="MainComponent.cpp" compile="1" resource="0"
+            file="Source/MainComponent.cpp"/>
+    </GROUP>
+  </MAINGROUP>
+  <MODULES>
+    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_processors_headless" showAllCode="1" useLocalCopy="0"
+            useGlobalPath="1"/>
+    <MODULE id="juce_audio_utils" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+  </MODULES>
+  <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1"/>
+  <EXPORTFORMATS>
+    <XCODE_MAC targetFolder="Builds/MacOSX" iosDevelopmentTeamID="ZWK5C5U7QD" microphonePermissionNeeded="1">
+      <CONFIGURATIONS>
+        <CONFIGURATION isDebug="1" name="Debug" targetName="GuitarTuner" macOSDeploymentTarget="12.0"
+                       osxCompatibility="12.0 SDK"/>
+        <CONFIGURATION isDebug="0" name="Release" targetName="GuitarTuner" macOSDeploymentTarget="12.0"
+                       osxCompatibility="12.0 SDK"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_audio_basics" path="../modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../modules"/>
+        <MODULEPATH id="juce_audio_utils" path="../modules"/>
+        <MODULEPATH id="juce_core" path="../modules"/>
+        <MODULEPATH id="juce_data_structures" path="../modules"/>
+        <MODULEPATH id="juce_events" path="../modules"/>
+        <MODULEPATH id="juce_graphics" path="../modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../modules"/>
+        <MODULEPATH id="juce_audio_processors_headless" path="../modules"/>
+      </MODULEPATHS>
+    </XCODE_MAC>
+    <XCODE_IPHONE targetFolder="Builds/iOS" iosDevelopmentTeamID="ZWK5C5U7QD" iosDeviceFamily="1,2" iosScreenOrientation="UIInterfaceOrientationPortrait"
+                  microphonePermissionNeeded="1"
+                  microphonePermissionsText="GuitarTuner listens to your guitar through the microphone to measure its pitch.">
+      <CONFIGURATIONS>
+        <CONFIGURATION isDebug="1" name="Debug" iosDeploymentTarget="16.0"/>
+        <CONFIGURATION isDebug="0" name="Release" iosDeploymentTarget="16.0"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_audio_basics" path="~/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="~/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="~/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="~/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors_headless" path="~/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="~/JUCE/modules"/>
+        <MODULEPATH id="juce_core" path="~/JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="~/JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="~/JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="~/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="~/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="~/JUCE/modules"/>
+      </MODULEPATHS>
+    </XCODE_IPHONE>
+  </EXPORTFORMATS>
+</JUCERPROJECT>
