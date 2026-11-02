@@ -73,6 +73,11 @@ MainComponent::MainComponent()
 
     selectTarget (4, 2, false);   // start with E2 selected, silently
 
+    // A4 as the user left it last time (415...466 Hz, 440 if never changed)
+    const auto savedReference = (float) Theme::settings().getDoubleValue ("referencePitch", 440.0);
+    if (savedReference != 440.0f)
+        setReference (juce::jlimit (415.0f, 466.0f, savedReference));
+
     // set the size after adding the child components, so resized() can place them
     setSize (1100, 780);
     startTimerHz (60);   // call timerCallback() 60 times per second
@@ -118,8 +123,13 @@ void MainComponent::prepareToPlay (int samplesPerBlockExpected, double sampleRat
     currentSampleRate = sampleRate;
     smoothedLevel = 0.0f;
 
-    detector.prepare (sampleRate);   // allocates the detector's arrays - before audio starts
-    stabiliser.prepare (sampleRate, hopSize);
+    decimation = juce::jmax (1, (int) std::round (sampleRate / 48000.0));   // 1 at 44.1/48 kHz, 2 at 88.2/96, 4 at 192
+    decimationCount = 0;
+    decimationSum = 0.0f;
+    const double analysisRate = sampleRate / decimation;
+
+    detector.prepare (analysisRate);   // allocates the detector's arrays - before audio starts
+    stabiliser.prepare (analysisRate, hopSize);
     synth.prepare (sampleRate);
     synth2.prepare (sampleRate);
     frameFill = 0;
@@ -143,7 +153,15 @@ void MainComponent::getNextAudioBlock (const juce::AudioSourceChannelInfo& buffe
         {
             sum += x[i] * x[i];
             if (analyse)
-                pushSample (x[i]);
+            {
+                decimationSum += x[i];
+                if (++decimationCount == decimation)
+                {
+                    pushSample (decimationSum / (float) decimation);
+                    decimationSum = 0.0f;
+                    decimationCount = 0;
+                }
+            }
         }
 
         if (! analyse)
@@ -262,6 +280,9 @@ void MainComponent::setReference (float hz)
     referencePitch.store (hz);
     sidebar.setReference (hz);
     selectTarget (targetNote, targetOctave, false);         // the target's frequency changed
+
+    Theme::settings().setValue ("referencePitch", (double) hz);   // remembered for the next launch
+    Theme::settings().saveIfNeeded();
 }
 
 void MainComponent::applyTheme()
@@ -555,14 +576,20 @@ void MainComponent::renderBackground()
         Theme::softShadow (g, sidebar.getBounds().toFloat(), 20.0f);
 }
 
+// the band below the last control (but at most 120 px tall); waves never grow past its edges
+juce::Rectangle<float> MainComponent::waveBand() const
+{
+    auto band = content.toFloat().removeFromBottom (120.0f).reduced (10.0f, 0.0f);
+    band.setTop (juce::jmax (band.getY(), (float) waveTop));
+    return band;
+}
+
 void MainComponent::drawSignalWave (juce::Graphics& g)
 {
     // Three sine waves across the bottom of the content area, like an oscilloscope in slow motion.
     // Their size, speed and colour come from waveAmplitude / waveCycles / wavePhase / waveMix,
     // which timerCallback() moves smoothly towards what the microphone hears.
-    // the band below the last control (but at most 120 px tall); waves never grow past its edges
-    auto band = content.toFloat().removeFromBottom (120.0f).reduced (10.0f, 0.0f);
-    band.setTop (juce::jmax (band.getY(), (float) waveTop));
+    const auto band = waveBand();
     if (band.getHeight() < 30.0f)
         return;
     const float midY = band.getCentreY();
@@ -689,10 +716,16 @@ void MainComponent::resized()
     auto top = content.reduced (20).removeFromTop (44);
     header.setBounds (top.withSizeKeepingCentre (juce::jmin (180, top.getWidth()), 44));
 
-    // the ring is a square: as big as fits, centred in the content area, a little above the middle
-    const int side = juce::jmin (content.getWidth() - 40, (int) (content.getHeight() * (useSidebar ? 0.58f : 0.52f)));
-    ring.setBounds (juce::Rectangle<int> (side, side)
-                        .withCentre ({ content.getCentreX(), content.getY() + (int) (content.getHeight() * (useSidebar ? 0.43f : 0.40f)) }));
+    // the ring is a square: as big as fits, centred in the content area, a little above the middle.
+    // On short screens (iPhone SE, a small Mac window) it shrinks so that everything below it still
+    // fits: octave picker, string row, play bar and the hint line (manual mode needs the most room)
+    const int below = useSidebar ? 200 : 252;                    // space needed under the ring
+    const int ringTop = content.getY() + 74;                     // just under the header
+    int side = juce::jmin (content.getWidth() - 40, (int) (content.getHeight() * (useSidebar ? 0.58f : 0.52f)));
+    side = juce::jmax (120, juce::jmin (side, content.getBottom() - below - ringTop));
+    int centreY = content.getY() + (int) (content.getHeight() * (useSidebar ? 0.43f : 0.40f));
+    centreY = juce::jlimit (ringTop + side / 2, juce::jmax (ringTop + side / 2, content.getBottom() - below - side / 2), centreY);
+    ring.setBounds (juce::Rectangle<int> (side, side).withCentre ({ content.getCentreX(), centreY }));
 
     // under the ring: hint text (auto) or octave picker (manual), then the strings (narrow only)
     const int y = ring.getBottom() + 16;
@@ -803,5 +836,22 @@ void MainComponent::timerCallback()
         playBar.setPlaying (synth.isPlaying());
     }
 
-    repaint();   // redraw the background glow and the hint text too
+    // What to redraw. Repainting the whole window 60 times a second means blending millions of
+    // Retina pixels every frame: a full CPU core. Most of it hardly changes, so:
+    //  - the wave strip at the bottom: every frame (it is the only thing that really flows)
+    //  - everything else (the slowly drifting background, the hint text): 30 times a second while
+    //    a note sounds, 10 when it is quiet, every frame while the sidebar/drawer moves (its shadow
+    //    is part of the background)
+    //  - nothing while the intro covers the window
+    if (isShowing() && ! (intro.isVisible() && intro.isOpaque()))     // (isShowing: false when minimised)
+    {
+        const bool panelMoving = ! sidebarSpring.isSettled() || ! drawerSpring.isSettled() || drag.active;
+        const bool sounding    = f > 0.0f || synth.isPlaying() || synth2.isPlaying();
+        const int  everyNth    = panelMoving ? 1 : (sounding ? 2 : 6);
+
+        if (frameCounter % everyNth == 0)
+            repaint();
+        else
+            repaint (waveBand().expanded (0.0f, 12.0f).toNearestInt());   // + room for the glow
+    }
 }

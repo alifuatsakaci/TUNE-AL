@@ -187,11 +187,16 @@ public:
         instrumentCaption = r.removeFromTop (22.0f);
         instrumentRow = r.removeFromTop (44.0f);
 
+        // on short screens (iPhone SE, a small window) the six string rows get a little thinner,
+        // so the reference pitch and the buttons at the bottom never overlap
+        const float fixedParts = 32.0f + 76.0f + 78.0f + 8.0f + 44.0f;        // strings caption, tuning, reference, gap, buttons
+        const float rowHeight  = juce::jlimit (36.0f, 46.0f, (r.getHeight() - 10.0f - fixedParts) / 6.0f - 2.0f);
+
         r.removeFromTop (10.0f);
         stringsCaption = r.removeFromTop (22.0f);
         for (auto& row : rows)
         {
-            row->setBounds (r.removeFromTop (46.0f).toNearestInt());
+            row->setBounds (r.removeFromTop (rowHeight).toNearestInt());
             r.removeFromTop (2.0f);
         }
 

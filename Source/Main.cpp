@@ -70,6 +70,7 @@ public:
             setFullScreen (true);
            #else
             setResizable (true, true);
+            setResizeLimits (360, 640, 10000, 10000);   // smaller than this, the controls no longer fit
             centreWithSize (getWidth(), getHeight());
            #endif
 

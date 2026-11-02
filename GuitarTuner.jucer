@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <JUCERPROJECT id="Ltxzim" name="GuitarTuner" projectType="guiapp" useAppConfig="0"
-              bundleIdentifier="com.alifuatsakaci.guitartuner" companyName="Ali Fuat Sakaci"
+              bundleIdentifier="com.alifuatsakaci.guitartuner" companyName="Ali Fuat Sakaci" companyCopyright="Copyright 2026 Ali Fuat Sakaci"
               addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1">
   <MAINGROUP id="UY2xWG" name="GuitarTuner">
     <GROUP id="{EEC92985-6F27-D346-0802-DE6E12C5E96E}" name="Source">
@@ -33,6 +33,8 @@
             file="Resources/LaunchLogo.png"/>
       <FILE id="LnS2Sb" name="LaunchScreen.storyboard" compile="0" resource="0"
             file="Resources/LaunchScreen.storyboard"/>
+      <FILE id="Prv3Mf" name="PrivacyInfo.xcprivacy" compile="0" resource="0" xcodeResource="1"
+            file="Resources/PrivacyInfo.xcprivacy"/>
       <FILE id="IcM2Ap" name="AppIcon_mac.png" compile="0" resource="0" file="Resources/AppIcon_mac.png"/>
       <FILE id="IcI2Ap" name="AppIcon_ios.png" compile="0" resource="0" file="Resources/AppIcon_ios.png"/>
     </GROUP>
@@ -54,7 +56,9 @@
   </MODULES>
   <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1"/>
   <EXPORTFORMATS>
-    <XCODE_MAC targetFolder="Builds/MacOSX" bigIcon="IcM2Ap" iosDevelopmentTeamID="ZWK5C5U7QD" microphonePermissionNeeded="1">
+    <XCODE_MAC targetFolder="Builds/MacOSX" bigIcon="IcM2Ap" appSandbox="1" appSandboxOptions="com.apple.security.device.audio-input"
+               hardenedRuntime="1" hardenedRuntimeOptions="com.apple.security.device.audio-input"
+               microphonePermissionsText="GuitarTuner listens to your guitar through the microphone to measure its pitch." iosDevelopmentTeamID="ZWK5C5U7QD" microphonePermissionNeeded="1">
       <CONFIGURATIONS>
         <CONFIGURATION isDebug="1" name="Debug" targetName="GuitarTuner" macOSDeploymentTarget="12.0"
                        osxCompatibility="12.0 SDK"/>

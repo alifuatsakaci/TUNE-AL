@@ -214,7 +214,12 @@ private:
             }
         }
 
-        repaint();
+        // only redraw while something moves: a settled welcome card costs nothing
+        const float since = t - strikeTime;
+        const bool moving = phase != Phase::welcome || ! handSpring.isSettled() || ! cardSpring.isSettled()
+                             || (since >= 0.0f && since < ringLength + 0.5f);       // ringing, or ripples still spreading
+        if (moving)
+            repaint();
     }
 
     void showWelcomeCard()

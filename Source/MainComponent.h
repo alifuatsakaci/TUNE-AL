@@ -51,6 +51,7 @@ public:
     void setDrawerOpen (bool shouldBeOpen);                   // iPhone: the sidebar slides over the tuner
     void applyTheme();                                        // light/dark changed: update everything
     void drawSignalWave (juce::Graphics& g);                  // the flowing wave at the bottom
+    juce::Rectangle<float> waveBand() const;                  // the strip the wave lives in
     juce::BorderSize<int> safeInsets() const;                 // iPhone: space taken by the notch and home bar
     void darkModeSettingChanged() override { applyTheme(); }  // macOS appearance changed
     bool keyPressed (const juce::KeyPress& key) override;     // Ctrl+Cmd+S toggles the sidebar
@@ -75,6 +76,13 @@ private:
     static constexpr int hopSize = PitchDetector::frameSize / 2;   // analyse every 1024 new samples
     std::array<float, PitchDetector::frameSize> frame {};          // fixed size: no allocation
     int frameFill = 0;                                             // how many samples are in frame
+
+    // High sample rates (88.2/96/192 kHz audio interfaces) would push the low E out of YIN's range
+    // (it looks back at most 1024 samples). So above ~60 kHz the input is averaged in groups of
+    // 2 or 4 samples first ("decimation"): the detector always works at 44.1 or 48 kHz.
+    int   decimation = 1;
+    int   decimationCount = 0;
+    float decimationSum = 0.0f;
 
     // ---- reference tone (audio thread renders it, GUI thread starts/stops it) ----
     PluckSynth synth;

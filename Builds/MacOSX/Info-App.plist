@@ -4,7 +4,7 @@
 <plist>
   <dict>
     <key>NSMicrophoneUsageDescription</key>
-    <string>This app requires audio input. If you do not have an audio interface connected it will use the built-in microphone.</string>
+    <string>GuitarTuner listens to your guitar through the microphone to measure its pitch.</string>
     <key>CFBundleExecutable</key>
     <string>${EXECUTABLE_NAME}</string>
     <key>CFBundleIconFile</key>
@@ -24,7 +24,7 @@
     <key>CFBundleVersion</key>
     <string>1.0.0</string>
     <key>NSHumanReadableCopyright</key>
-    <string></string>
+    <string>Copyright 2026 Ali Fuat Sakaci</string>
     <key>NSHighResolutionCapable</key>
     <true/>
   </dict>
