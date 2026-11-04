@@ -119,7 +119,7 @@ public:
             const bool twoLines = r.getWidth() < 330.0f;
             g.setColour (ink);
             g.setFont (juce::FontOptions (28.0f, juce::Font::bold));
-            g.drawFittedText (twoLines ? "Welcome to\nGuitar Tuner" : "Welcome to Guitar Tuner",
+            g.drawFittedText (twoLines ? "Welcome to\nTune-AL" : "Welcome to Tune-AL",
                               r.removeFromTop (twoLines ? 70.0f : 38.0f).toNearestInt(), juce::Justification::centred, 2, 1.0f);
             r.removeFromTop (10.0f);
             g.setColour (ink.withAlpha (0.75f));

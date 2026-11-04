@@ -56,9 +56,9 @@
   </MODULES>
   <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1"/>
   <EXPORTFORMATS>
-    <XCODE_MAC targetFolder="Builds/MacOSX" bigIcon="IcM2Ap" appSandbox="1" appSandboxOptions="com.apple.security.device.audio-input"
+    <XCODE_MAC customPList="&lt;plist&gt;&lt;dict&gt;&#10;  &lt;key&gt;CFBundleName&lt;/key&gt;&lt;string&gt;Tune-AL&lt;/string&gt;&#10;  &lt;key&gt;CFBundleDisplayName&lt;/key&gt;&lt;string&gt;Tune-AL&lt;/string&gt;&#10;&lt;/dict&gt;&lt;/plist&gt;" targetFolder="Builds/MacOSX" bigIcon="IcM2Ap" appSandbox="1" appSandboxOptions="com.apple.security.device.audio-input"
                hardenedRuntime="1" hardenedRuntimeOptions="com.apple.security.device.audio-input"
-               microphonePermissionsText="GuitarTuner listens to your guitar through the microphone to measure its pitch." iosDevelopmentTeamID="ZWK5C5U7QD" microphonePermissionNeeded="1">
+               microphonePermissionsText="Tune-AL listens to your guitar through the microphone to measure its pitch." iosDevelopmentTeamID="ZWK5C5U7QD" microphonePermissionNeeded="1">
       <CONFIGURATIONS>
         <CONFIGURATION isDebug="1" name="Debug" targetName="GuitarTuner" macOSDeploymentTarget="12.0"
                        osxCompatibility="12.0 SDK"/>
@@ -80,9 +80,9 @@
         <MODULEPATH id="juce_audio_processors_headless" path="../modules"/>
       </MODULEPATHS>
     </XCODE_MAC>
-    <XCODE_IPHONE targetFolder="Builds/iOS" bigIcon="IcI2Ap" customLaunchStoryboard="Resources/LaunchScreen.storyboard" iosDevelopmentTeamID="ZWK5C5U7QD" iosDeviceFamily="1,2" iosScreenOrientation="UIInterfaceOrientationPortrait"
+    <XCODE_IPHONE customPList="&lt;plist&gt;&lt;dict&gt;&#10;  &lt;key&gt;CFBundleName&lt;/key&gt;&lt;string&gt;Tune-AL&lt;/string&gt;&#10;  &lt;key&gt;CFBundleDisplayName&lt;/key&gt;&lt;string&gt;Tune-AL&lt;/string&gt;&#10;&lt;/dict&gt;&lt;/plist&gt;" targetFolder="Builds/iOS" bigIcon="IcI2Ap" customLaunchStoryboard="Resources/LaunchScreen.storyboard" iosDevelopmentTeamID="ZWK5C5U7QD" iosDeviceFamily="1,2" iosScreenOrientation="UIInterfaceOrientationPortrait"
                   microphonePermissionNeeded="1"
-                  microphonePermissionsText="GuitarTuner listens to your guitar through the microphone to measure its pitch.">
+                  microphonePermissionsText="Tune-AL listens to your guitar through the microphone to measure its pitch.">
       <CONFIGURATIONS>
         <CONFIGURATION isDebug="1" name="Debug" iosDeploymentTarget="16.0"/>
         <CONFIGURATION isDebug="0" name="Release" iosDeploymentTarget="16.0"/>

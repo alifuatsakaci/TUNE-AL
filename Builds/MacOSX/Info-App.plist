@@ -3,18 +3,18 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist>
   <dict>
+    <key>CFBundleName</key>
+    <string>Tune-AL</string>
+    <key>CFBundleDisplayName</key>
+    <string>Tune-AL</string>
     <key>NSMicrophoneUsageDescription</key>
-    <string>GuitarTuner listens to your guitar through the microphone to measure its pitch.</string>
+    <string>Tune-AL listens to your guitar through the microphone to measure its pitch.</string>
     <key>CFBundleExecutable</key>
     <string>${EXECUTABLE_NAME}</string>
     <key>CFBundleIconFile</key>
     <string>AppIcon.icns</string>
     <key>CFBundleIdentifier</key>
     <string>com.alifuatsakaci.guitartuner</string>
-    <key>CFBundleName</key>
-    <string>GuitarTuner</string>
-    <key>CFBundleDisplayName</key>
-    <string>GuitarTuner</string>
     <key>CFBundlePackageType</key>
     <string>APPL</string>
     <key>CFBundleSignature</key>

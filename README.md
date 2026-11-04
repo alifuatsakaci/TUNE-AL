@@ -1,11 +1,13 @@
 <p align="center">
-  <img src="docs/images/icon.png" width="128" alt="Guitar Tuner icon: a hand holding a tuning fork">
+  <img src="docs/images/icon.png" width="128" alt="Tune-AL icon: a hand holding a tuning fork">
 </p>
 
-<h1 align="center">Guitar Tuner</h1>
+<h1 align="center">Tune-AL</h1>
+
+<p align="center"><i>Guitar tuner and music theory for beginners</i></p>
 
 <p align="center">
-  A chromatic guitar tuner for <b>macOS</b> and <b>iPhone</b>, written in C++ with <a href="https://juce.com">JUCE</a>.<br>
+  A chromatic guitar tuner that teaches you as you tune, for <b>macOS</b> and <b>iPhone</b>, written in C++ with <a href="https://juce.com">JUCE</a>.<br>
   Real-time YIN pitch detection, a physically modelled reference tone, and a liquid-glass interface.
 </p>
 

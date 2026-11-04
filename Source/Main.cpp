@@ -16,7 +16,7 @@ public:
     //==============================================================================
     GuitarTunerApplication() {}
 
-    const juce::String getApplicationName() override       { return ProjectInfo::projectName; }
+    const juce::String getApplicationName() override       { return "Tune-AL"; }   // the name people see (the project itself is still called GuitarTuner)
     const juce::String getApplicationVersion() override    { return ProjectInfo::versionString; }
     bool moreThanOneInstanceAllowed() override             { return true; }
 
