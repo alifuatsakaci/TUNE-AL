@@ -121,6 +121,8 @@ private:
     // blurry shapes look the same scaled up, and it is 16 times fewer pixels to paint every frame
     juce::Image backgroundImage;
     void renderBackground();
+    bool backgroundDirty = true;   // render a new background picture at the next paint (only on full repaints:
+                                   // partial repaints must reuse the same picture, or their patches won't match)
     bool sidebarOpen = true;                                       // what the user chose
     Spring sidebarSpring;                                          // value: 0 = hidden ... 1 = fully open
     bool drawerOpen = false;                                       // narrow screens: the sidebar as a drawer

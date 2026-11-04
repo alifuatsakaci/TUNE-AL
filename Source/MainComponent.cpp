@@ -288,6 +288,7 @@ void MainComponent::setReference (float hz)
 void MainComponent::applyTheme()
 {
     Theme::update();
+    backgroundDirty = true;                   // the background colours change too
     sidebar.themeChanged();
 
     // buffered components keep their old picture until THEY repaint, so tell every one of them
@@ -471,7 +472,13 @@ int MainComponent::defaultOctaveFor (int note)
 void MainComponent::paint (juce::Graphics& g)
 {
     // ---- a living background: glass only looks like glass if there is colour behind it ----
-    renderBackground();
+    // the background picture only changes on full repaints (see timerCallback); a partial repaint,
+    // e.g. behind the ring when the note changes, reuses it, so the patch always matches its surroundings
+    if (backgroundDirty || backgroundImage.isNull())
+    {
+        renderBackground();
+        backgroundDirty = false;
+    }
     g.setImageResamplingQuality (juce::Graphics::mediumResamplingQuality);   // smooth when stretched
     g.drawImage (backgroundImage, getLocalBounds().toFloat());
 
@@ -630,6 +637,8 @@ void MainComponent::drawSignalWave (juce::Graphics& g)
 
 void MainComponent::resized()
 {
+    backgroundDirty = true;                   // new size, new background picture
+
     // On iPhone, the Dynamic Island (top) and the home bar (bottom) cover part of the screen.
     // The background still fills everything, but controls are placed inside the "safe area".
     const auto insets = safeInsets();
@@ -850,7 +859,10 @@ void MainComponent::timerCallback()
         const int  everyNth    = panelMoving ? 1 : (sounding ? 2 : 6);
 
         if (frameCounter % everyNth == 0)
+        {
+            backgroundDirty = true;
             repaint();
+        }
         else
             repaint (waveBand().expanded (0.0f, 12.0f).toNearestInt());   // + room for the glow
     }

@@ -20,18 +20,25 @@
     The glass sidebar of the Mac layout (from the Figma design):
 
         (top bar)          room for the sidebar button, top right
-        INSTRUMENT [SOON]  Guitar, 6 strings        (bass, ukulele... coming soon)
+        INSTRUMENT [SOON]  Guitar, 6 strings        (bass, ukulele... coming soon)   *
         STRINGS            six rows: chip, name, frequency, live status
         TUNING             Standard  E A D G B E
-        SONG TUNING  [AI]  [ search a song... ]      (coming soon)
+        SONG TUNING  [AI]  [ search a song... ]      (coming soon)                    *
         REFERENCE PITCH    A4 = 440 Hz   [-] [+]
         [ ? Music basics ]
+
+    * only shown when showComingSoon is true (see below)
 
     Like the header, it only reports clicks through callbacks.
 */
 class SidebarComponent  : public juce::Component
 {
 public:
+    // The two sections that only announce future features (more instruments, AI song tuning).
+    // Off for the App Store: Apple rejects apps with "coming soon" placeholders (guideline 2.1).
+    // Turn it back on to keep working on them.
+    static constexpr bool showComingSoon = false;
+
     std::function<void (int stringIndex)> onStringClicked;
     std::function<void (float hz)> onReferenceChanged;
     std::function<void()> onHelpClicked;
@@ -137,14 +144,17 @@ public:
             Theme::drawGlass (g, r, 20.0f, 0.06f);
 
         // instrument: only the 6-string guitar for now
-        caption (g, "INSTRUMENT", instrumentCaption);
-        badge (g, "SOON", instrumentCaption.getX() + 88.0f, instrumentCaption.getCentreY(), juce::Colour (0xff64d2ff));
-        card (g, instrumentRow);
-        auto ir = instrumentRow.reduced (14.0f, 5.0f);
-        text (g, "Guitar" + juce::String::fromUTF8 (" \xc2\xb7 ") + "6 strings", ir.removeFromTop (ir.getHeight() * 0.55f), 14.0f, true, ink);
-        const bool showSoon = juce::Time::getMillisecondCounter() < instrumentMessageUntil;
-        text (g, showSoon ? "Bass, 7-string, ukulele: coming soon" : "More instruments coming soon", ir, 12.0f, false,
-              showSoon ? juce::Colour (0xff64d2ff) : ink.withAlpha (0.6f));
+        if (! instrumentRow.isEmpty())
+        {
+            caption (g, "INSTRUMENT", instrumentCaption);
+            badge (g, "SOON", instrumentCaption.getX() + 88.0f, instrumentCaption.getCentreY(), juce::Colour (0xff64d2ff));
+            card (g, instrumentRow);
+            auto ir = instrumentRow.reduced (14.0f, 5.0f);
+            text (g, "Guitar" + juce::String::fromUTF8 (" \xc2\xb7 ") + "6 strings", ir.removeFromTop (ir.getHeight() * 0.55f), 14.0f, true, ink);
+            const bool showSoon = juce::Time::getMillisecondCounter() < instrumentMessageUntil;
+            text (g, showSoon ? "Bass, 7-string, ukulele: coming soon" : "More instruments coming soon", ir, 12.0f, false,
+                  showSoon ? juce::Colour (0xff64d2ff) : ink.withAlpha (0.6f));
+        }
 
         caption (g, "STRINGS", stringsCaption);
         caption (g, "TUNING", tuningCaption);
@@ -184,8 +194,12 @@ public:
         auto r = getLocalBounds().reduced (14).toFloat();
         r.removeFromTop ((float) topBarHeight);                // the sidebar button sits up here
 
-        instrumentCaption = r.removeFromTop (22.0f);
-        instrumentRow = r.removeFromTop (44.0f);
+        instrumentCaption = instrumentRow = {};
+        if (showComingSoon)
+        {
+            instrumentCaption = r.removeFromTop (22.0f);
+            instrumentRow = r.removeFromTop (44.0f);
+        }
 
         // on short screens (iPhone SE, a small window) the six string rows get a little thinner,
         // so the reference pitch and the buttons at the bottom never overlap
@@ -205,7 +219,8 @@ public:
         tuningRow = r.removeFromTop (44.0f);
 
         // the song search only appears if there is room for it (it is the least important part)
-        const bool roomForSong = r.getHeight() > 10.0f + 22.0f + 40.0f + 16.0f + 10.0f + 22.0f + 46.0f + 10.0f + 44.0f;
+        const bool roomForSong = showComingSoon
+                                  && r.getHeight() > 10.0f + 22.0f + 40.0f + 16.0f + 10.0f + 22.0f + 46.0f + 10.0f + 44.0f;
         searchBox.setVisible (roomForSong);
         songCaption = songRow = songMessage = {};
         if (roomForSong)
