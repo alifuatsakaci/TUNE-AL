@@ -62,7 +62,7 @@
       <CONFIGURATIONS>
         <CONFIGURATION isDebug="1" name="Debug" targetName="GuitarTuner" macOSDeploymentTarget="12.0"
                        osxCompatibility="12.0 SDK"/>
-        <CONFIGURATION isDebug="0" name="Release" targetName="GuitarTuner" macOSDeploymentTarget="12.0"
+        <CONFIGURATION isDebug="0" name="Release" customXcodeFlags="GCC_GENERATE_DEBUGGING_SYMBOLS = YES, DEBUG_INFORMATION_FORMAT = dwarf-with-dsym" targetName="GuitarTuner" macOSDeploymentTarget="12.0"
                        osxCompatibility="12.0 SDK"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
@@ -85,7 +85,7 @@
                   microphonePermissionsText="Tune-AL listens to your guitar through the microphone to measure its pitch.">
       <CONFIGURATIONS>
         <CONFIGURATION isDebug="1" name="Debug" iosDeploymentTarget="16.0"/>
-        <CONFIGURATION isDebug="0" name="Release" iosDeploymentTarget="16.0"/>
+        <CONFIGURATION isDebug="0" name="Release" customXcodeFlags="GCC_GENERATE_DEBUGGING_SYMBOLS = YES, DEBUG_INFORMATION_FORMAT = dwarf-with-dsym" iosDeploymentTarget="16.0"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_audio_basics" path="~/JUCE/modules"/>
