@@ -7,6 +7,8 @@
     <string>Tune-AL</string>
     <key>CFBundleDisplayName</key>
     <string>Tune-AL</string>
+    <key>ITSAppUsesNonExemptEncryption</key>
+    <false/>
     <key>NSMicrophoneUsageDescription</key>
     <string>Tune-AL listens to your guitar through the microphone to measure its pitch.</string>
     <key>CFBundleExecutable</key>
