@@ -56,7 +56,7 @@
   </MODULES>
   <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1"/>
   <EXPORTFORMATS>
-    <XCODE_MAC customPList="&lt;plist&gt;&lt;dict&gt;&#10;  &lt;key&gt;CFBundleName&lt;/key&gt;&lt;string&gt;Tune-AL&lt;/string&gt;&#10;  &lt;key&gt;CFBundleDisplayName&lt;/key&gt;&lt;string&gt;Tune-AL&lt;/string&gt;&#10;  &lt;key&gt;ITSAppUsesNonExemptEncryption&lt;/key&gt;&lt;false/&gt;&#10;&lt;/dict&gt;&lt;/plist&gt;" targetFolder="Builds/MacOSX" bigIcon="IcM2Ap" appSandbox="1" appSandboxOptions="com.apple.security.device.audio-input"
+    <XCODE_MAC customPList="&lt;plist&gt;&lt;dict&gt;&#10;  &lt;key&gt;CFBundleName&lt;/key&gt;&lt;string&gt;Tune-AL&lt;/string&gt;&#10;  &lt;key&gt;CFBundleDisplayName&lt;/key&gt;&lt;string&gt;Tune-AL&lt;/string&gt;&#10;  &lt;key&gt;ITSAppUsesNonExemptEncryption&lt;/key&gt;&lt;false/&gt;&#10;  &lt;key&gt;LSApplicationCategoryType&lt;/key&gt;&lt;string&gt;public.app-category.music&lt;/string&gt;&#10;&lt;/dict&gt;&lt;/plist&gt;" targetFolder="Builds/MacOSX" bigIcon="IcM2Ap" appSandbox="1" appSandboxOptions="com.apple.security.device.audio-input"
                hardenedRuntime="1" hardenedRuntimeOptions="com.apple.security.device.audio-input"
                microphonePermissionsText="Tune-AL listens to your guitar through the microphone to measure its pitch." iosDevelopmentTeamID="BPB9865Q44" microphonePermissionNeeded="1">
       <CONFIGURATIONS>
