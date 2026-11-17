@@ -62,7 +62,7 @@
       <CONFIGURATIONS>
         <CONFIGURATION isDebug="1" name="Debug" targetName="GuitarTuner" macOSDeploymentTarget="12.0"
                        osxCompatibility="12.0 SDK"/>
-        <CONFIGURATION isDebug="0" name="Release" customXcodeFlags="GCC_GENERATE_DEBUGGING_SYMBOLS = YES, DEBUG_INFORMATION_FORMAT = dwarf-with-dsym" targetName="GuitarTuner" macOSDeploymentTarget="12.0"
+        <CONFIGURATION isDebug="0" name="Release" customXcodeFlags="GCC_GENERATE_DEBUGGING_SYMBOLS = YES, DEBUG_INFORMATION_FORMAT = dwarf-with-dsym, INSTALL_PATH = /Applications" targetName="GuitarTuner" macOSDeploymentTarget="12.0"
                        osxCompatibility="12.0 SDK"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
